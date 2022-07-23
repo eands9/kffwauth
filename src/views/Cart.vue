@@ -6,8 +6,18 @@
       :product="product"
     />
     <CartSummaryPaymentCard />
-    <button @click="login">Login</button>
-    <button>Logout</button>
+    <div>
+        <a
+          v-if="userInfo"
+          :href="`/.auth/logout`"
+          >Logout</a
+        >
+        <a
+          v-if="!userInfo"
+          :href="`/.auth/login/aad`"
+          >Login</a
+        >
+    </div>
   </div>
 </template>
 
@@ -33,9 +43,6 @@ export default {
     },
   },
   methods: {
-    login(){
-      this.$router.push('/.auth/login/aad')
-    },
     async getUserInfo() {
       try {
         const response = await fetch('/.auth/me');
