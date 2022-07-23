@@ -6,6 +6,8 @@
       :product="product"
     />
     <CartSummaryPaymentCard />
+    <button @click="login">Login</button>
+    <button>Logout</button>
   </div>
 </template>
 
@@ -17,10 +19,37 @@ export default {
     CartItemCard,
     CartSummaryPaymentCard,
   },
+  data() {
+    return {
+      userInfo: {
+        type: Object,
+        default() {},
+      },
+    };
+  },
   computed: {
     products() {
       return this.$store.getters.cartItems;
     },
+  },
+  methods: {
+    login(){
+      this.$router.push('/.auth/login/aad')
+    },
+    async getUserInfo() {
+      try {
+        const response = await fetch('/.auth/me');
+        const payload = await response.json();
+        const { clientPrincipal } = payload;
+        return clientPrincipal;
+      } catch (error) {
+        console.error('No profile could be found');
+        return undefined;
+      }
+    },
+  },
+  async created() {
+    this.userInfo = await this.getUserInfo();
   },
 };
 </script>
