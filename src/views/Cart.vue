@@ -9,12 +9,12 @@
     <div>
         <a
           v-if="userInfo"
-          :href="`/.auth/logout?post_logout_redirect_uri=/cart`"
+          :href="`/.auth/logout?post_logout_redirect_uri=https://agreeable-forest-09f155110.1.azurestaticapps.net/cart`"
           >Logout</a
         >
         <a
           v-if="!userInfo"
-          :href="`/.auth/login/aad?post_login_redirect_uri=/cart`"
+          :href="`/.auth/login/aad?post_login_redirect_uri=https://agreeable-forest-09f155110.1.azurestaticapps.net/cart`"
           >Login</a
         >
     <div class="user" v-if="userInfo">
