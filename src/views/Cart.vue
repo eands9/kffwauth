@@ -9,14 +9,18 @@
     <div>
         <a
           v-if="userInfo"
-          :href="`/.auth/logout`"
+          :href="`/.auth/logout?post_logout_redirect_uri=/cart`"
           >Logout</a
         >
         <a
           v-if="!userInfo"
-          :href="`/.auth/login/aad`"
+          :href="`/.auth/login/aad?post_login_redirect_uri=/cart`"
           >Login</a
         >
+    <div class="user" v-if="userInfo">
+      <p>Welcome</p>
+      <p>{{ userInfo.userDetails }}</p>
+    </div>
     </div>
   </div>
 </template>
@@ -43,6 +47,9 @@ export default {
     },
   },
   methods: {
+    login(){
+      this.$router.push('/.auth/login/aad')
+    },
     async getUserInfo() {
       try {
         const response = await fetch('/.auth/me');
